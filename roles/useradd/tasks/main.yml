@@ -1,0 +1,22 @@
+---
+- name: make sure have a 'sudo' group
+  group:
+    name: sudo
+    state: present
+
+- name: allow 'sudo' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD:ALL'
+
+- name: create user {{ username }}
+  user:
+    name: "{{ username }}"
+    shell: /bin/bash
+    groups: sudo
+    createhome: yes
+    home: /home/{{ username }}
+    state: present
+    password: "{{ password }}"

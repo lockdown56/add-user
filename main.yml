@@ -1,0 +1,11 @@
+---
+- name: create user
+  hosts: devserver
+  remote_user: vagrant
+  become: yes
+  become_method: sudo
+  vars:
+    username: test4
+    password: $1$ansible$72eg2Nt0WeveaObTpx8bL0
+  roles: 
+    - useradd
